@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 import { CardWrapper } from "./card-wrapper";
+import { login } from "@/action/login";
 
 export const LoginForm = () => {
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -28,6 +29,7 @@ export const LoginForm = () => {
   });
 
   const handleLogin = (data: z.infer<typeof LoginSchema>) => {
+    login();
     console.log(data);
   };
 
@@ -44,7 +46,6 @@ export const LoginForm = () => {
           className="flex flex-col gap-3"
         >
           <div>
-
             <FormField
               name="email"
               control={form.control}
@@ -72,12 +73,9 @@ export const LoginForm = () => {
               )}
             />
           </div>
-          <Button type="submit">
-            Login
-          </Button>
+          <Button type="submit">Login</Button>
         </form>
       </Form>
     </CardWrapper>
   );
 };
-

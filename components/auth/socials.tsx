@@ -9,15 +9,15 @@ export const Social = () => {
         <span className="mx-2 text-sm text-gray-800">or continue with</span>
         <div style={{ flex: 1, height: "1px" }} className="bg-gray-500" />
       </div>
-      <div className="flex flex-col gap-3">
-        <Button variant={"outline"} className="flex gap-1 w-full">
+      <div className="flex gap-3">
+        <Button variant={"outline"} className="flex gap-1 w-1/2">
           <FcGoogle />
           <span>Google</span>
         </Button>
-        {/* <Button className="w-full gap-1 ">
+        <Button className="w-1/2 gap-1 ">
           <FaInstagram />
           Instagram
-        </Button> */}
+        </Button>
       </div>
     </div>
   );

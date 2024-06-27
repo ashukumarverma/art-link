@@ -2,6 +2,8 @@ import Image from "next/image";
 import img from "@/public/img/login.jpeg";
 import { LoginForm } from "@/components/auth/login-form";
 
+
+
 const Login = () => {
     return (
         <div className="w-full flex justify-between items-center px-16 py-10">
