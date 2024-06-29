@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Merriweather, Merriweather_Sans } from "next/font/google";
+import { Inter, Merriweather_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 const merriWeather = Merriweather_Sans({
   weight: ["400", "700", "800"],
   subsets: ["vietnamese"],
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={merriWeather.className}>
+      <body className={merriWeather.className} suppressHydrationWarning={true}>
         <Navbar />
         {children}
       </body>

@@ -23,10 +23,10 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 import { CardWrapper } from "./card-wrapper";
-import { db } from "@/lib/db.config";
-import { register } from "@/action/register";
+import { useTransition } from "react";
 
 export const RegisterForm = () => {
+  const [isPending, setTransition] = useTransition()
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -38,8 +38,8 @@ export const RegisterForm = () => {
     },
   });
 
-  const handleRegister = async (data: z.infer<typeof RegisterSchema>) => {
-    await register();
+  const handleRegister = (data: z.infer<typeof RegisterSchema>) => {
+    console.log(data)
   };
 
   return (
