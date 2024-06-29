@@ -17,7 +17,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 import { CardWrapper } from "./card-wrapper";
-import { login } from "@/action/login";
+import { register } from "@/action/register";
 
 export const LoginForm = () => {
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -29,7 +29,7 @@ export const LoginForm = () => {
   });
 
   const handleLogin = (data: z.infer<typeof LoginSchema>) => {
-    login();
+    register();
     console.log(data);
   };
 

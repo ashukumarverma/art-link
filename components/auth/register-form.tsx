@@ -23,6 +23,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 import { CardWrapper } from "./card-wrapper";
+import { db } from "@/lib/db.config";
+import { register } from "@/action/register";
 
 export const RegisterForm = () => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -36,8 +38,8 @@ export const RegisterForm = () => {
     },
   });
 
-  const handleRegister = (data: z.infer<typeof RegisterSchema>) => {
-    console.log(data);
+  const handleRegister = async (data: z.infer<typeof RegisterSchema>) => {
+    await register();
   };
 
   return (

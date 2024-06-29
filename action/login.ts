@@ -1,7 +1,9 @@
-import { connect } from "@/lib/db";
+// import { connect } from "@/lib/db";
+import { LoginSchema } from "@/schema";
+import { z } from "zod";
 
-connect();
+// connect();
 
-export const login = async () => {
-    console.log('login');
+export const login = async (values: z.infer<typeof LoginSchema>) => {
+    console.log(values);
 }
