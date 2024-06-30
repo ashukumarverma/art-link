@@ -1,0 +1,13 @@
+'use server'
+
+import { signOut } from "@/auth"
+
+
+export async function logout() {
+  await signOut({
+    redirectTo: "/auth/login"
+  });
+  return {
+    success: "Logged out successfully"
+  }
+}

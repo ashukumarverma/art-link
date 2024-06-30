@@ -1,10 +1,12 @@
 import Image from "next/image";
 import img from "@/public/img/login.jpeg";
 import { LoginForm } from "@/components/auth/login-form";
+import { auth } from "@/auth";
 
 
 
-const Login = () => {
+const Login = async () => {
+  
     return (
         <div className="w-full flex justify-between items-center px-16 py-10">
         <div className="w-1/2 flex flex-col items-center">
