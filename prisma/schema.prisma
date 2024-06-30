@@ -13,6 +13,12 @@ generator client {
   provider = "prisma-client-js"
 }
  
+enum UserType{
+  Admin
+  Artist
+  General
+}
+
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
@@ -21,6 +27,7 @@ model User {
   image         String?
   accounts      Account[]
   password      String?
+  userType      UserType?
   // sessions      Session[]
   // Optional for WebAuthn support
   // Authenticator Authenticator[]
