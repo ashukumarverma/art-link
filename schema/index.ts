@@ -14,11 +14,7 @@ export const RegisterSchema = z.object({
     email: z.string().email({
         message: 'Invalid email address'
     }),
-    contact: z.string().min(10, {
-        message: 'Contact is required'
-    }),
     password: z.string().min(1, {
         message: 'Password is required'
     }),
-    usertype: z.enum(['Artist', 'General'])
 })
