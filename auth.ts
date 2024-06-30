@@ -1,8 +1,25 @@
-import NextAuth from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import authConfig from "./auth.config"
-import db from "./lib/db"
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import authConfig from "./auth.config";
+import db from "./lib/db";
+import NextAuth, { type DefaultSession } from "next-auth";
+import { UserType } from "@prisma/client";
+import { JWT } from "next-auth/jwt"
+import { getUserByID } from "./data/user";
  
+declare module "next-auth/jwt" {
+  interface JWT {
+    userType: UserType
+  }
+}
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      userType: UserType;
+    } & DefaultSession["user"];
+  }
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   // pages: {
   //   signIn: "/auth/login",
@@ -23,14 +40,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return true;
     },
-    async session({token, session}){
-      return session
+    async session({ token, session, user}) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          userType: token.userType
+        },
+      };
     },
-    async jwt({token}){
-      return token
-    }
+    async jwt({ token }) {
+      if (!token.sub) {
+        return token;
+      }
+      const existUser = await getUserByID(token.sub);
+      if (!existUser) {
+        return token;
+      }
+      token.userType = existUser.userType;
+      return {
+        ...token,
+        userType: token.userType,
+      }
+    },
   },
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   ...authConfig,
-})
+});

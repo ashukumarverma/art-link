@@ -27,9 +27,11 @@ import { useState, useTransition } from "react";
 import register from "@/action/register";
 import FormSuccess from "../form-success";
 import FormError from "../form-error";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
   const [isPending, setTransition] = useTransition();
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const form = useForm<z.infer<typeof RegisterSchema>>({

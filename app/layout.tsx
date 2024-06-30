@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import { SessionProvider, useSession } from "next-auth/react";
 import { auth } from "@/auth";
+import { Toaster } from "@/components/ui/sonner";
 // const inter = Inter({ subsets: ["latin"] });
 const merriWeather = Merriweather_Sans({
   weight: ["400", "700", "800"],
@@ -31,6 +32,7 @@ export default async function RootLayout({
         >
           <Navbar />
           {children}
+          <Toaster />
         </body>
       </html>
     </SessionProvider>

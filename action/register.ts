@@ -7,7 +7,6 @@ import { z } from "zod"
 
 export default async function register(values: z.infer<typeof RegisterSchema>) {
     try {
-        console.log("Register action")
         const validatedField = RegisterSchema.safeParse(values);
         if(!validatedField.success) {
             return {error: "Invalid field inputs!"};
