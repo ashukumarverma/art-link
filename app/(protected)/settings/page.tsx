@@ -1,4 +1,3 @@
-// "use client";
 
 import { auth, signOut } from "@/auth";
 import { LogoutButton } from "@/components/auth/logout-button";

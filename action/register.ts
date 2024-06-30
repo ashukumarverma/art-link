@@ -19,12 +19,12 @@ export default async function register(values: z.infer<typeof RegisterSchema>) {
             return {error: "User already exists!"};
         }
 
-        // const hashedPassword = await bcrypt.hash(password, 12);
+        const hashedPassword = await bcrypt.hash(password, 12);
         // Do something with the data
         const user = await db.user.create({
             data: {
                 email,
-                password,
+                password: hashedPassword,
                 name
             }
         })

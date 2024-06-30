@@ -65,7 +65,7 @@ export const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="prabhashroy@gmail.com" {...field} disabled={isPending} />
+                    <Input placeholder="prabhashroy@gmail.com" {...field} disabled={isPending} type="email" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,7 +78,7 @@ export const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="********" {...field} disabled={isPending} />
+                    <Input placeholder="********" {...field} disabled={isPending} type="password" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
