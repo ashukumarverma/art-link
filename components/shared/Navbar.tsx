@@ -2,8 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import { isLoggedIn } from "@/lib/auth";
 
-const Navbar = () => {
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { FaUserCircle } from "react-icons/fa";
+import { LogoutButton } from "../auth/logout-button";
+import MobileNav from "./MobileNav";
+
+const Navbar = async () => {
+  const isLogged = isLoggedIn();
   return (
     <nav className="flex justify-between z-50 w-screen gap-5 p-4 shadow-sm dark:shadow-none sm:px-12">
       <Link href="/" className="flex items-center gap-1">
@@ -14,28 +29,49 @@ const Navbar = () => {
           </span>
         </p>
       </Link>
-      <ul className="flex gap-5 items-center max-sm:hidden">
-        <li>
-          <Link href="/gallery">Gallery</Link>
-        </li>
-        <li>
-          <Link href="/wishlist">Wishlist</Link>
-        </li>
-        <li>
-          <Link href="/cart">Cart</Link>
-        </li>
+      <div className="flex items-center">
+        {/* NavBar all device except mobile */}
+        <div className="flex gap-3 items-center max-sm:hidden">
+          <div>
+            <Link href="/gallery">Gallery</Link>
+          </div>
+          <div>
+            <Link href="/wishlist">Wishlist</Link>
+          </div>
+          <div>
+            <Link href="/cart">Cart</Link>
+          </div>
 
-        <li>
-          <Button>
-            <Link href="/auth/login">Login</Link>
-          </Button>
-        </li>
-        <li>
-          <Button>
-            <Link href="/auth/register">Register</Link>
-          </Button>
-        </li>
-      </ul>
+          {(await isLogged) ? (
+            <div className="">
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <FaUserCircle className="h-8 w-8" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>
+                    <Link href="/profile">Profile</Link>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LogoutButton />
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <div className="gap-3 flex">
+              <Button>
+                <Link href="/auth/login">Login</Link>
+              </Button>
+            </div>
+          )}
+        </div>
+        {/* MobileNav Here */}
+        <div className="hidden max-sm:flex mr-3">
+          <MobileNav />
+        </div>
+      </div>
     </nav>
   );
 };
