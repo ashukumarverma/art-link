@@ -9,9 +9,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { LogoutButton } from "../auth/logout-button";
@@ -20,24 +17,11 @@ const MobileNav = async () => {
   const isLogged = isLoggedIn();
   return (
     <div className="hidden max-sm:flex">
-      {/* <Sheet>
-        <SheetTrigger>Open</SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </SheetDescription>
-          </SheetHeader>
-        </SheetContent>
-      </Sheet> */}
-
       <Sheet>
         <SheetTrigger>
           <IoMenu className="h-8 w-8" />
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent className="pt-8">
           <SheetClose className="w-full">
             {(await isLogged) ? (
               <div className="flex flex-col items-start gap-2 ">

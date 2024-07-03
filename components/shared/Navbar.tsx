@@ -20,7 +20,7 @@ import MobileNav from "./MobileNav";
 const Navbar = async () => {
   const isLogged = isLoggedIn();
   return (
-    <nav className="flex justify-between z-50 w-screen gap-5 p-4 shadow-sm dark:shadow-none sm:px-12">
+    <nav className="flex justify-between z-50 w-screen gap-5 p-4 shadow-sm sm:px-12">
       <Link href="/" className="flex items-center gap-1">
         <Image src="/img/logo.jpeg" width={40} height={40} alt="ArtLink" />
         <p>
@@ -48,11 +48,16 @@ const Navbar = async () => {
                 <DropdownMenuTrigger>
                   <FaUserCircle className="h-8 w-8" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>
+                <DropdownMenuContent side="left" className="mt-4">
+                  {/* <DropdownMenuLabel>
                     <Link href="/profile">Profile</Link>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
+                  </DropdownMenuLabel> */}
+                  {/* <DropdownMenuSeparator /> */}
+                  <DropdownMenuItem>
+                    <Link href="/profile" className="w-full">
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>
                     <LogoutButton />
                   </DropdownMenuItem>
