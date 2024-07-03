@@ -17,16 +17,19 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 import { CardWrapper } from "./card-wrapper";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import login from "@/action/login";
 import FormError from "../form-error";
 import FormSuccess from "../form-success";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
-  const [isPending, setTransition] = useTransition()
+  const [isPending, setTransition] = useTransition();
+  const { update } = useSession();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
+  const router = useRouter();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -34,13 +37,19 @@ export const LoginForm = () => {
       password: "",
     },
   });
+
   const handleLogin = (data: z.infer<typeof LoginSchema>) => {
     setError("");
     setSuccess("");
     setTransition(() => {
-      login(data).then((data) => {
-        setError(data?.error);
-        setSuccess(data?.success);
+      login(data).then(async (response) => {
+        if (response?.error) {
+          setError(response.error);
+        } else {
+          setSuccess(response?.success);
+          await update();
+          router.push("/profile");
+        }
       });
     });
   };
@@ -65,7 +74,12 @@ export const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="prabhashroy@gmail.com" {...field} disabled={isPending} type="email" />
+                    <Input
+                      placeholder="prabhashroy@gmail.com"
+                      {...field}
+                      disabled={isPending}
+                      type="email"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,7 +92,12 @@ export const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="********" {...field} disabled={isPending} type="password" />
+                    <Input
+                      placeholder="********"
+                      {...field}
+                      disabled={isPending}
+                      type="password"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,7 +106,9 @@ export const LoginForm = () => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button type="submit" disabled={isPending}>Login</Button>
+          <Button type="submit" disabled={isPending}>
+            Login
+          </Button>
         </form>
       </Form>
     </CardWrapper>

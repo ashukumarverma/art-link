@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Merriweather_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/components/AuthProvider";
 // const inter = Inter({ subsets: ["latin"] });
 const merriWeather = Merriweather_Sans({
   weight: ["400", "700", "800"],
@@ -24,17 +25,16 @@ export default async function RootLayout({
   const session = await auth();
 
   return (
-    <SessionProvider session={session}>
-      <html lang="en">
-        <body
-          className={merriWeather.className}
-          suppressHydrationWarning={true}
-        >
-          <Navbar />
-          {children}
+    <html lang="en">
+      <body className={merriWeather.className} suppressHydrationWarning={true}>
+        <AuthProvider session={session}>
+          <main>
+            <Navbar />
+            {children}
+          </main>
           <Toaster />
-        </body>
-      </html>
-    </SessionProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
 }

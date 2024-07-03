@@ -54,7 +54,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return token;
       }
       const existUser = await getUserByID(token.sub);
-      if (!existUser) {
+      if (!existUser || !existUser.userType) {
         return token;
       }
       token.userType = existUser.userType;
