@@ -21,12 +21,15 @@ import { useState, useTransition } from "react";
 import login from "@/action/login";
 import FormError from "../form-error";
 import FormSuccess from "../form-success";
-import { useSession } from "next-auth/react";
+import { useSessionContext } from "@/context/SessionContext";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
   const [isPending, setTransition] = useTransition()
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
+  const { updateSession } = useSessionContext();
+  const router = useRouter();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -38,9 +41,14 @@ export const LoginForm = () => {
     setError("");
     setSuccess("");
     setTransition(() => {
-      login(data).then((data) => {
-        setError(data?.error);
-        setSuccess(data?.success);
+      login(data).then( async (res) => {
+        if (res?.error) {
+          setError(res.error);
+        } else {
+          await updateSession();
+          setSuccess(res?.success);
+          router.push("/profile");
+        }
       });
     });
   };
