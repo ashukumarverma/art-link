@@ -5,6 +5,7 @@ import { logout } from "@/action/logout";
 import { useSessionContext } from "@/context/SessionContext";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { toast } from "sonner";
 
 export const LogoutButton = () => {
   const router = useRouter();
