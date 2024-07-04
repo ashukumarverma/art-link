@@ -48,18 +48,24 @@ const Navbar = async () => {
                 <DropdownMenuTrigger>
                   <FaUserCircle className="h-8 w-8" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent side="left" className="mt-4">
+                <DropdownMenuContent
+                  side="bottom"
+                  className="flex flex-col items-center shadow-xl min-w-24 mr-12"
+                >
                   {/* <DropdownMenuLabel>
                     <Link href="/profile">Profile</Link>
                   </DropdownMenuLabel> */}
                   {/* <DropdownMenuSeparator /> */}
-                  <DropdownMenuItem>
-                    <Link href="/profile" className="w-full">
+                  <DropdownMenuItem className="w-full">
+                    <Link
+                      href="/profile"
+                      className=" flex justify-center w-full p-2 shadow-md rounded-md"
+                    >
                       Profile
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <LogoutButton />
+                  <DropdownMenuItem className="w-full">
+                    <LogoutButton className="w-full shadow-md"/>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

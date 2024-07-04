@@ -7,16 +7,16 @@ interface Props {
   title: string;
   imageURL: string;
   artist: string;
-  ratio: "square" | "portrait" | "landscape";
+  ratio: string;
   likes: number;
 }
 
 const ArtCard = ({ title, imageURL, ratio, artist, likes }: Props) => {
-  const aspectRatioClasses = {
-    square: "aspect-square",
-    portrait: "aspect-[4/5]",
-    landscape: "aspect-[3/2]",
-  };
+  // const aspectRatioClasses = {
+  //   square: "aspect-square",
+  //   portrait: "aspect-[4/5]",
+  //   landscape: "aspect-[3/2]",
+  // };
 
   return (
     <div

@@ -21,7 +21,7 @@ const MobileNav = async () => {
         <SheetTrigger>
           <IoMenu className="h-8 w-8" />
         </SheetTrigger>
-        <SheetContent className="pt-8">
+        <SheetContent className="pt-8 w-1/2">
           <SheetClose className="w-full">
             {(await isLogged) ? (
               <div className="flex flex-col items-start gap-2 ">
@@ -30,17 +30,17 @@ const MobileNav = async () => {
                   <Link href="/profile"> Profile</Link>
                 </div>
 
-                <div className="p-2">
+                <div className="flex p-2 shadow-md rounded-md w-full items-center">
                   <Link href="/gallery">Gallery</Link>
                 </div>
-                <div className="p-2">
+                <div className="flex p-2 shadow-md rounded-md w-full items-center">
                   <Link href="/wishlist">Wishlist</Link>
                 </div>
-                <div className="p-2">
+                <div className="flex p-2 shadow-md rounded-md w-full items-center">
                   <Link href="/cart">Cart</Link>
                 </div>
 
-                <LogoutButton />
+                <LogoutButton className="w-full"/>
               </div>
             ) : (
               <div className="gap-3 flex flex-col">

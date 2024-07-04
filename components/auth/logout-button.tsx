@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
-export const LogoutButton = () => {
+interface LogoutButtonProps {
+  className?: string;
+}
+
+export const LogoutButton = ({className}:LogoutButtonProps) => {
   const router = useRouter();
   const { updateSession } = useSessionContext();
   const [isPending, setTransition] = useTransition();
@@ -20,13 +24,13 @@ export const LogoutButton = () => {
         } else {
           toast.success(res?.success);
         }
-        router.push("/auth/login");
         await updateSession();
+        router.push("/auth/login");
       });
     });
   };
   return (
-    <Button onClick={handleLogout} disabled={isPending}>
+    <Button className={className} onClick={handleLogout} disabled={isPending}>
       Logout
     </Button>
   );
