@@ -17,6 +17,7 @@ enum UserType{
   Admin
   Artist
   General
+  null
 }
 
 model User {
