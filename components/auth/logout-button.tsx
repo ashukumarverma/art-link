@@ -15,6 +15,11 @@ export const LogoutButton = () => {
   const handleLogout = async () => {
     setTransition(() => {
       logout().then(async (res) => {
+        if (res?.error) {
+          toast.error(res.error);
+        } else {
+          toast.success(res?.success);
+        }
         router.push("/auth/login");
         await updateSession();
       });

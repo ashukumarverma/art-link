@@ -1,18 +1,18 @@
 "use client"
 import { auth, signOut } from "@/auth";
 import { LogoutButton } from "@/components/auth/logout-button";
-import { useSession } from "next-auth/react";
+import { useSessionContext } from "@/context/SessionContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Setting() {
-  const {data: session, status} = useSession()
+  const {session} = useSessionContext()
   const router = useRouter();
   useEffect(() => {
-    if(status === "unauthenticated"){
-        router.push("/auth/login");
+    if (!session.isAuthenticated) {
+      router.push("/auth/login");
     }
-  }, [status, router]);
+  });
   
   return (
     <div className="container">
