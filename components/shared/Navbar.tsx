@@ -20,7 +20,7 @@ import MobileNav from "./MobileNav";
 const Navbar = async () => {
   const isLogged = isLoggedIn();
   return (
-    <nav className="flex justify-between z-50 w-screen gap-5 p-4 shadow-sm sm:px-12">
+    <nav className="flex justify-between z-50 w-[100%] gap-5 p-4 shadow-sm sm:px-12">
       <Link href="/" className="flex items-center gap-1">
         <Image src="/img/logo.jpeg" width={40} height={40} alt="ArtLink" />
         <p>
