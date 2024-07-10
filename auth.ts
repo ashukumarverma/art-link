@@ -3,12 +3,12 @@ import authConfig from "./auth.config";
 import db from "./lib/db";
 import NextAuth, { type DefaultSession } from "next-auth";
 import { UserType } from "@prisma/client";
-import { JWT } from "next-auth/jwt"
+import { JWT } from "next-auth/jwt";
 import { getUserByID } from "./data/user";
- 
+
 declare module "next-auth/jwt" {
   interface JWT {
-    userType: UserType
+    userType: UserType;
   }
 }
 
@@ -21,10 +21,10 @@ declare module "next-auth" {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  // pages: {
-  //   signIn: "/auth/login",
-  //   error: "/auth/error",
-  // },
+  pages: {
+    signIn: "/auth/login",
+    error: "/auth/error",
+  },
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider !== "credentials") {
@@ -40,12 +40,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return true;
     },
-    async session({ token, session, user}) {
+    async session({ token, session, user }) {
       return {
         ...session,
         user: {
           ...session.user,
-          userType: token.userType
+          userType: token.userType,
         },
       };
     },
@@ -61,7 +61,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return {
         ...token,
         userType: token.userType,
-      }
+      };
     },
   },
   adapter: PrismaAdapter(db),
