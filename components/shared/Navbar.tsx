@@ -1,8 +1,8 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { isLoggedIn } from "@/lib/auth";
 
 import {
   DropdownMenu,
@@ -16,9 +16,11 @@ import {
 import { FaUserCircle } from "react-icons/fa";
 import { LogoutButton } from "../auth/logout-button";
 import MobileNav from "./MobileNav";
+import { useLoggedInStatus } from "@/hooks/login-status";
 
-const Navbar = async () => {
-  const isLogged = isLoggedIn();
+const Navbar = () => {
+  const loggedInStatus = useLoggedInStatus()
+
   return (
     <nav className="flex justify-between z-50 w-[100%] gap-5 p-4 shadow-sm sm:px-12">
       <Link href="/" className="flex items-center gap-1">
@@ -42,7 +44,7 @@ const Navbar = async () => {
             <Link href="/cart">Cart</Link>
           </div>
 
-          {(await isLogged) ? (
+          {(loggedInStatus) ? (
             <div className="">
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -80,7 +82,7 @@ const Navbar = async () => {
         </div>
         {/* MobileNav Here */}
         <div className="hidden max-sm:flex mr-3">
-          <MobileNav />
+          <MobileNav loggedInStatus={loggedInStatus}/>
         </div>
       </div>
     </nav>

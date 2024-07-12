@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { LogoutButton } from "../auth/logout-button";
 
-const MobileNav = async () => {
-  const isLogged = isLoggedIn();
+const MobileNav = ({ loggedInStatus }: { loggedInStatus: boolean }) => {
   return (
     <div className="hidden max-sm:flex">
       <Sheet>
@@ -23,7 +22,7 @@ const MobileNav = async () => {
         </SheetTrigger>
         <SheetContent className="pt-8 w-1/2">
           <SheetClose className="w-full">
-            {(await isLogged) ? (
+            {loggedInStatus ? (
               <div className="flex flex-col items-start gap-2 ">
                 <div className="flex flex-row items-center gap-2 shadow-md rounded-md w-full p-2 ">
                   <FaUserCircle className="h-8 w-8" />
@@ -40,7 +39,7 @@ const MobileNav = async () => {
                   <Link href="/cart">Cart</Link>
                 </div>
 
-                <LogoutButton className="w-full"/>
+                <LogoutButton className="w-full" />
               </div>
             ) : (
               <div className="gap-3 flex flex-col">

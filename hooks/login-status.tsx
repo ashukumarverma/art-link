@@ -1,7 +1,7 @@
 "use client"
 import { useSessionContext } from "@/context/SessionContext"
 
-export const useCurrentUser = () => {
+export const useLoggedInStatus = () => {
     const {session} = useSessionContext()
-    return session.user;
+    return !!session.user;
 }
