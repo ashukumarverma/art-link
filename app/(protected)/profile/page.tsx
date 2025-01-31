@@ -7,23 +7,30 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Profile() {
-//   const user = useCurrentUser();
-const {session} = useSessionContext()
+  //   const user = useCurrentUser();
+  const { session } = useSessionContext();
   const router = useRouter();
 
   useEffect(() => {
     if (!session.isAuthenticated) {
       router.push("/auth/login");
     }
-    if(session.user && !session.user.userType ){
-        router.push("/user/profile-type");
+    if (session.user && !session.user.userType) {
+      router.push("/user/profile-type");
     }
   });
 
   return (
-    <div>
+    <div className="w-[100%]">
       <h1>Profile</h1>
-      <p>{JSON.stringify(session.user)}</p>
+      <p className="flex">
+        Name: {JSON.stringify(session.user?.name)}{" "}
+        <span className="flex">
+          image: {JSON.stringify(session.user?.image)}
+        </span>
+      </p>
+      <p className="flex">email: {JSON.stringify(session.user?.email)}</p>
+      <p className="flex">userType: {JSON.stringify(session.user?.userType)}</p>
       <LogoutButton />
     </div>
   );
